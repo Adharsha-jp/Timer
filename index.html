@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Timer</title>
+    <style>
+        body {
+            background-color: azure;
+        }
+        
+        .box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 50px;
+        }
+        
+        h1 {
+            color: rgb(68, 142, 142);
+        }
+        
+        .btn1 {
+            background-color: rgb(118, 175, 175);
+            border: none;
+        }
+        
+        .btn2 {
+            background-color: rgb(185, 38, 38);
+            border: none;
+        }
+        
+        .btn3 {
+            background-color: rgb(145, 175, 118);
+            border: none;
+        }
+        
+        button {
+            padding: 5px;
+            margin: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <h1>TIMER</h1>
+        <h3 id="timer">25:00</h3>
+        <div>
+            <button class="btn1" onclick="startTimer()">START</button>
+            <button class="btn2" onclick="stopTimer()">STOP</button>
+            <button class="btn3" onclick="resetTimer()">RESET</button>
+        </div>
+    </div>
+
+    <script>
+        const totalSeconds = 25 * 60;
+        var curr = totalSeconds;
+        var IntervalId;
+
+        function updateTimer() {
+            const min = Math.floor(curr / 60);
+            const sec = curr % 60;
+            const formattedTime =
+                String(min).padStart(2, '0') + ':' + String(sec).padStart(2, '0');
+            document.getElementById("timer").innerHTML = formattedTime;
+        }
+
+        function startTimer() {
+            IntervalId = setInterval(() => {
+                curr--;
+                updateTimer();
+            }, 1000)
+        }
+
+        function stopTimer() {
+            clearInterval(IntervalId);
+        }
+
+        function resetTimer() {
+            curr = totalSeconds;
+            updateTimer();
+            stopTimer();
+        }
+    </script>
+</body>
+
+</html>
